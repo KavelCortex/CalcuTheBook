@@ -1,0 +1,21 @@
+<resources>
+        <string name="title_activity_order">设定课本的金额</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_default_cost">0.0</string>
+
+    <string name="set_the_cost1">设定课本1的金额</string>
+    <string name="set_the_cost2">设定课本2的金额</string>
+    <string name="set_the_cost3">设定课本3的金额</string>
+    <string name="set_the_cost4">设定课本4的金额</string>
+    <string name="set_the_cost5">设定课本5的金额</string>
+    <string name="set_the_cost6">设定课本6的金额</string>
+    <string name="set_the_cost7">设定课本7的金额</string>
+    <string name="set_the_cost8">设定课本8的金额</string>
+    <string name="set_the_cost9">设定课本9的金额</string>
+    <string name="set_the_cost10">设定课本10的金额</string>
+    <string name="set_the_cost11">设定课本11的金额</string>
+</resources>
