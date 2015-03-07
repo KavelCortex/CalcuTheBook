@@ -79,6 +79,15 @@ public class order extends PreferenceActivity {
         bindPreferenceSummaryToValue(findPreference("book_cost_9"));
         bindPreferenceSummaryToValue(findPreference("book_cost_10"));
         bindPreferenceSummaryToValue(findPreference("book_cost_11"));
+        bindPreferenceSummaryToValue(findPreference("book_cost_12"));
+        bindPreferenceSummaryToValue(findPreference("book_cost_13"));
+        bindPreferenceSummaryToValue(findPreference("book_cost_14"));
+        bindPreferenceSummaryToValue(findPreference("book_cost_15"));
+        bindPreferenceSummaryToValue(findPreference("book_cost_16"));
+        bindPreferenceSummaryToValue(findPreference("book_cost_17"));
+        bindPreferenceSummaryToValue(findPreference("book_cost_18"));
+        bindPreferenceSummaryToValue(findPreference("book_cost_19"));
+        bindPreferenceSummaryToValue(findPreference("book_cost_20"));
     }
 
     /** {@inheritDoc} */
@@ -184,6 +193,15 @@ public class order extends PreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("book_cost_9"));
             bindPreferenceSummaryToValue(findPreference("book_cost_10"));
             bindPreferenceSummaryToValue(findPreference("book_cost_11"));
+            bindPreferenceSummaryToValue(findPreference("book_cost_12"));
+            bindPreferenceSummaryToValue(findPreference("book_cost_13"));
+            bindPreferenceSummaryToValue(findPreference("book_cost_14"));
+            bindPreferenceSummaryToValue(findPreference("book_cost_15"));
+            bindPreferenceSummaryToValue(findPreference("book_cost_16"));
+            bindPreferenceSummaryToValue(findPreference("book_cost_17"));
+            bindPreferenceSummaryToValue(findPreference("book_cost_18"));
+            bindPreferenceSummaryToValue(findPreference("book_cost_19"));
+            bindPreferenceSummaryToValue(findPreference("book_cost_20"));
         }
     }
 }

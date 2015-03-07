@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">课本价格计算器</string>
+    <string name="app_name">课本价格计算器V1.1</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_order">设定课本金额...</string>
     <string name="action_about">关于本应用...</string>
-    <string name="title_activity_about">关于本应用</string>
     <string name="action_settings">Settings</string>
+    <string name="btn_price">&gt;&gt;点击这里修改课本的金额&lt;&lt;</string>
+    <string name="btn_checkout">一键复位 !</string>
+    <string name="version">1.1 - CheckBox ver.</string>
 
 </resources>
