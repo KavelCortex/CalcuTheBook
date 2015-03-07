@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.CompoundButton;
@@ -75,6 +76,8 @@ public class main extends Activity {
     private OnCheckedChangeListener listener = new OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
+            setTitle(R.string.checking_title);
             switch(compoundButton.getId())
             {
                 case R.id.cb1:
@@ -195,7 +198,8 @@ public class main extends Activity {
 
 
         TextView textview = (TextView)findViewById(R.id.textView);
-        textview.setText("--- 价格已重置 ---");
+        textview.setText("--- 金额已重置 ---");
+        setTitle(R.string.app_name);
 
         totalPrice =new BigDecimal(0);
     }

@@ -1,5 +1,5 @@
 <resources>
-        <string name="title_activity_order">设定课本的金额</string>
+        <string name="title_activity_order">设定课本的价格</string>
 
     <!-- Strings related to Settings -->
 
@@ -7,24 +7,24 @@
     <string name="pref_header_general">General</string>
     <string name="pref_default_cost">0.0</string>
 
-    <string name="set_the_cost1">设定课本1的金额</string>
-    <string name="set_the_cost2">设定课本2的金额</string>
-    <string name="set_the_cost3">设定课本3的金额</string>
-    <string name="set_the_cost4">设定课本4的金额</string>
-    <string name="set_the_cost5">设定课本5的金额</string>
-    <string name="set_the_cost6">设定课本6的金额</string>
-    <string name="set_the_cost7">设定课本7的金额</string>
-    <string name="set_the_cost8">设定课本8的金额</string>
-    <string name="set_the_cost9">设定课本9的金额</string>
-    <string name="set_the_cost10">设定课本10的金额</string>
-    <string name="set_the_cost11">设定课本11的金额</string>
-    <string name="set_the_cost12">设定课本12的金额</string>
-    <string name="set_the_cost13">设定课本13的金额</string>
-    <string name="set_the_cost14">设定课本14的金额</string>
-    <string name="set_the_cost15">设定课本15的金额</string>
-    <string name="set_the_cost16">设定课本16的金额</string>
-    <string name="set_the_cost17">设定课本17的金额</string>
-    <string name="set_the_cost18">设定课本18的金额</string>
-    <string name="set_the_cost19">设定课本19的金额</string>
-    <string name="set_the_cost20">设定课本20的金额</string>
+    <string name="set_the_cost1">设定课本1的价格</string>
+    <string name="set_the_cost2">设定课本2的价格</string>
+    <string name="set_the_cost3">设定课本3的价格</string>
+    <string name="set_the_cost4">设定课本4的价格</string>
+    <string name="set_the_cost5">设定课本5的价格</string>
+    <string name="set_the_cost6">设定课本6的价格</string>
+    <string name="set_the_cost7">设定课本7的价格</string>
+    <string name="set_the_cost8">设定课本8的价格</string>
+    <string name="set_the_cost9">设定课本9的价格</string>
+    <string name="set_the_cost10">设定课本10的价格</string>
+    <string name="set_the_cost11">设定课本11的价格</string>
+    <string name="set_the_cost12">设定课本12的价格</string>
+    <string name="set_the_cost13">设定课本13的价格</string>
+    <string name="set_the_cost14">设定课本14的价格</string>
+    <string name="set_the_cost15">设定课本15的价格</string>
+    <string name="set_the_cost16">设定课本16的价格</string>
+    <string name="set_the_cost17">设定课本17的价格</string>
+    <string name="set_the_cost18">设定课本18的价格</string>
+    <string name="set_the_cost19">设定课本19的价格</string>
+    <string name="set_the_cost20">设定课本20的价格</string>
 </resources>
