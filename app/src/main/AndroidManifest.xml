@@ -23,7 +23,8 @@
         </activity>
         <activity
             android:name=".About"
-            android:label="@string/about_title" >
+            android:label="@string/about_title"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

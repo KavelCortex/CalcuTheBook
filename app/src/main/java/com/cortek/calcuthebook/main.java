@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 public class main extends Activity {
 
     BigDecimal totalPrice = new BigDecimal(0);
+    int checkedBoxCount=0;
 
 
 
@@ -25,6 +26,7 @@ public class main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkedBoxCount=0;
 
 
         final CheckBox cb1 = (CheckBox)findViewById(R.id.cb1);
@@ -47,6 +49,7 @@ public class main extends Activity {
         final CheckBox cb18 = (CheckBox)findViewById(R.id.cb18);
         final CheckBox cb19 = (CheckBox)findViewById(R.id.cb19);
         final CheckBox cb20 = (CheckBox)findViewById(R.id.cb20);
+        final CheckBox cbAOR = (CheckBox)findViewById(R.id.cbAllOrReset);
 
 
         //创建监听器
@@ -70,6 +73,7 @@ public class main extends Activity {
         cb18.setOnCheckedChangeListener(listener);
         cb19.setOnCheckedChangeListener(listener);
         cb20.setOnCheckedChangeListener(listener);
+        cbAOR.setOnCheckedChangeListener(listener);
 
     }
 
@@ -77,7 +81,8 @@ public class main extends Activity {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
-            setTitle(R.string.checking_title);
+
+            
             switch(compoundButton.getId())
             {
                 case R.id.cb1:
@@ -120,8 +125,17 @@ public class main extends Activity {
                     buy19(isChecked);break;
                 case R.id.cb20:
                     buy20(isChecked);break;
+                case R.id.cbAllOrReset:
+                    allOrReset(isChecked);break;
+                    
 
             }
+            if(checkedBoxCount!=0)
+                //当用户正在使用复选框时，将标题切换成可进行复位操作的提示
+                setTitle(R.string.checking_title);
+            else
+                //当所有复选框都未被选中时恢复标题，因为用户此时不需要进行复位
+                setTitle(R.string.app_name);
         }
     };
 
@@ -152,6 +166,15 @@ public class main extends Activity {
     }
 
     public void resetPrice(View view) {
+        //模拟取消选中“全选/复位”复选框时的动作来实现复位功能
+        allOrReset(false);
+    }
+    public void startOrdering(View view){
+        Intent intent=new Intent(main.this,order.class);
+        startActivity(intent);
+    }
+
+    public void allOrReset(boolean isChecked) {
 
         final CheckBox cb1 = (CheckBox)findViewById(R.id.cb1);
         final CheckBox cb2 = (CheckBox)findViewById(R.id.cb2);
@@ -173,53 +196,78 @@ public class main extends Activity {
         final CheckBox cb18 = (CheckBox)findViewById(R.id.cb18);
         final CheckBox cb19 = (CheckBox)findViewById(R.id.cb19);
         final CheckBox cb20 = (CheckBox)findViewById(R.id.cb20);
+        final CheckBox cbAOR = (CheckBox)findViewById(R.id.cbAllOrReset);
 
-        //取消全部复选框的选定状态
-        cb1.setChecked(false);
-        cb2.setChecked(false);
-        cb3.setChecked(false);
-        cb4.setChecked(false);
-        cb5.setChecked(false);
-        cb6.setChecked(false);
-        cb7.setChecked(false);
-        cb8.setChecked(false);
-        cb9.setChecked(false);
-        cb10.setChecked(false);
-        cb11.setChecked(false);
-        cb12.setChecked(false);
-        cb13.setChecked(false);
-        cb14.setChecked(false);
-        cb15.setChecked(false);
-        cb16.setChecked(false);
-        cb17.setChecked(false);
-        cb18.setChecked(false);
-        cb19.setChecked(false);
-        cb20.setChecked(false);
+        if(isChecked) {
 
+            //全选复选框
+            cb1.setChecked(true);
+            cb2.setChecked(true);
+            cb3.setChecked(true);
+            cb4.setChecked(true);
+            cb5.setChecked(true);
+            cb6.setChecked(true);
+            cb7.setChecked(true);
+            cb8.setChecked(true);
+            cb9.setChecked(true);
+            cb10.setChecked(true);
+            cb11.setChecked(true);
+            cb12.setChecked(true);
+            cb13.setChecked(true);
+            cb14.setChecked(true);
+            cb15.setChecked(true);
+            cb16.setChecked(true);
+            cb17.setChecked(true);
+            cb18.setChecked(true);
+            cb19.setChecked(true);
+            cb20.setChecked(true);
 
-        TextView textview = (TextView)findViewById(R.id.textView);
-        textview.setText("--- 金额已重置 ---");
-        setTitle(R.string.app_name);
+        }else{
 
-        totalPrice =new BigDecimal(0);
+            //取消选择所有复选框
+            cb1.setChecked(false);
+            cb2.setChecked(false);
+            cb3.setChecked(false);
+            cb4.setChecked(false);
+            cb5.setChecked(false);
+            cb6.setChecked(false);
+            cb7.setChecked(false);
+            cb8.setChecked(false);
+            cb9.setChecked(false);
+            cb10.setChecked(false);
+            cb11.setChecked(false);
+            cb12.setChecked(false);
+            cb13.setChecked(false);
+            cb14.setChecked(false);
+            cb15.setChecked(false);
+            cb16.setChecked(false);
+            cb17.setChecked(false);
+            cb18.setChecked(false);
+            cb19.setChecked(false);
+            cb20.setChecked(false);
+            cbAOR.setChecked(false);
+
+            //恢复初始界面文字
+            TextView textview = (TextView)findViewById(R.id.textView);
+            textview.setText(R.string.reset_complete);
+            setTitle(R.string.app_name);
+
+            //重置总金额
+            totalPrice =new BigDecimal(0);
+
+        }
     }
-    public void startOrdering(View view){
-        Intent intent=new Intent(main.this,order.class);
-        startActivity(intent);
-    }
-
-    public void goCheckout(View view){}
 
     public void buy1(boolean isChecked) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_1", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy2(boolean isChecked) {
@@ -227,11 +275,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_2", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy3(boolean isChecked) {
@@ -239,11 +287,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_3", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy4(boolean isChecked) {
@@ -251,11 +299,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_4", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy5(boolean isChecked) {
@@ -263,11 +311,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_5", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy6(boolean isChecked) {
@@ -275,11 +323,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_6", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy7(boolean isChecked) {
@@ -287,11 +335,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_7", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy8(boolean isChecked) {
@@ -299,11 +347,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_8", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy9(boolean isChecked) {
@@ -311,11 +359,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_9", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy10(boolean isChecked) {
@@ -323,11 +371,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_10", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy11(boolean isChecked) {
@@ -335,11 +383,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_11", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy12(boolean isChecked) {
@@ -347,11 +395,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_12", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy13(boolean isChecked) {
@@ -359,11 +407,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_13", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy14(boolean isChecked) {
@@ -371,11 +419,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_14", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy15(boolean isChecked) {
@@ -383,11 +431,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_15", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy16(boolean isChecked) {
@@ -395,11 +443,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_16", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy17(boolean isChecked) {
@@ -407,11 +455,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_17", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy18(boolean isChecked) {
@@ -419,11 +467,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_18", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy19(boolean isChecked) {
@@ -431,11 +479,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_19", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
     public void buy20(boolean isChecked) {
@@ -443,11 +491,11 @@ public class main extends Activity {
         TextView textview = (TextView) findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_20", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book);
-            textview.setText("金额：" + totalPrice + "元");
+            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            textview.setText("总金额：" + totalPrice + "元");
         }
     }
 

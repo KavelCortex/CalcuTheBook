@@ -225,4 +225,13 @@
         android:layout_alignParentStart="true"
         android:onClick="resetPrice"/>
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全选/复位"
+        android:id="@+id/cbAllOrReset"
+        android:checked="false"
+        android:layout_below="@id/cb20"
+        android:layout_alignEnd="@+id/cb20" />
+
 </RelativeLayout>
