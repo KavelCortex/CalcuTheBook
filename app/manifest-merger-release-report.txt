@@ -50,8 +50,6 @@ ADDED from AndroidManifest.xml:20:9
 		ADDED from AndroidManifest.xml:21:13
 activity#com.cortek.calcuthebook.About
 ADDED from AndroidManifest.xml:24:9
-	android:screenOrientation
-		ADDED from AndroidManifest.xml:27:13
 	android:label
 		ADDED from AndroidManifest.xml:26:13
 	android:name

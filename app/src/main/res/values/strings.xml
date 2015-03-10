@@ -2,14 +2,16 @@
 <resources>
 
     <string name="app_name">课本价格计算器</string>
-    <string name="about_title">课本价格计算器V1.3</string>
-    <string name="hello_world">&gt;&gt;点击此处可进行复位&lt;&lt;</string>
+    <string name="about_title">课本价格计算器V1.5</string>
+    <string name="hello_world">>>点击此处可进行复位&lt;&lt;</string>
     <string name="reset_complete">--- 金额已重置 ---</string>
-    <string name="action_order">设定课本价格...</string>
-    <string name="action_about">关于本应用...</string>
-    <string name="btn_price">&gt;&gt;点击这里修改课本的价格&lt;&lt;</string>
+    <string name="action_about">关于本应用</string>
+    <string name="action_feedback">有什么建议?</string>
+    <string name="btn_price">>>点击这里修改课本的价格&lt;&lt;</string>
     <string name="checking_title">提示：点击底部总金额可进行复位</string>
     <string name="AOR_reset">复位</string>
     <string name="AOR_check_all">全选</string>
+    <string name="main_set_price">设定课本价格</string>
+    <string name="main_pick_books">选择购买课本</string>
 
 </resources>

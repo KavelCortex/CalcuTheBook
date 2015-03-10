@@ -1,12 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".main" >
-    <item android:id="@+id/action_order"
-        android:title="@string/action_order"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+
     <item android:id="@+id/action_about"
         android:title="@string/action_about"
+        android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="200"
-        android:showAsAction="never" />
+        android:showAsAction="ifRoom" />
+
 </menu>
