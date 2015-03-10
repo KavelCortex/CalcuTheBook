@@ -9,6 +9,7 @@
     <string name="action_about">关于本应用...</string>
     <string name="btn_price">&gt;&gt;点击这里修改课本的价格&lt;&lt;</string>
     <string name="checking_title">提示：点击底部总金额可进行复位</string>
-    <string name="buy_mount"></string>
+    <string name="AOR_reset">复位</string>
+    <string name="AOR_check_all">全选</string>
 
 </resources>

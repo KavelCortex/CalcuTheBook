@@ -130,12 +130,15 @@ public class main extends Activity {
                     
 
             }
+            final CheckBox cbAOR = (CheckBox)findViewById(R.id.cbAllOrReset);
             if(checkedBoxCount!=0)
                 //当用户正在使用复选框时，将标题切换成可进行复位操作的提示
                 setTitle(R.string.checking_title);
-            else
+            else {
                 //当所有复选框都未被选中时恢复标题，因为用户此时不需要进行复位
                 setTitle(R.string.app_name);
+                cbAOR.setText(R.string.AOR_check_all);
+            }
         }
     };
 
@@ -222,6 +225,9 @@ public class main extends Activity {
             cb19.setChecked(true);
             cb20.setChecked(true);
 
+            //修改复选框文字为“复位”
+            cbAOR.setText(R.string.AOR_reset);
+
         }else{
 
             //取消选择所有复选框
@@ -255,6 +261,8 @@ public class main extends Activity {
             //重置总金额
             totalPrice =new BigDecimal(0);
 
+            //修改复选框文字为“全选”
+            cbAOR.setText(R.string.AOR_check_all);
         }
     }
 

@@ -13,11 +13,14 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
+        android:id="@+id/dogePortrait"
         android:layout_marginTop="25dp"
         android:src="@drawable/dogepic"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:onClick="dogeTurn"
+         />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,7 +28,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="由@王嘉维开发"
         android:id="@+id/textView"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/dogePortrait"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp" />
 
@@ -65,7 +68,7 @@
         android:checked="true"
         android:layout_marginTop="25dp"
         android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/imageView2"
+        android:layout_alignLeft="@+id/dogePortrait"
         android:clickable="true"
         android:enabled="true" />
 
@@ -75,7 +78,7 @@
         android:text="实用"
         android:id="@+id/checkBox2"
         android:checked="true"
-        android:layout_toEndOf="@+id/checkBox"
+        android:layout_toRightOf="@+id/checkBox"
         android:layout_alignTop="@+id/checkBox"
         android:enabled="true"
         android:clickable="true" />
@@ -86,7 +89,7 @@
         android:text="可修改金额"
         android:id="@+id/checkBox3"
         android:checked="true"
-        android:layout_toEndOf="@+id/checkBox2"
+        android:layout_toRightOf="@+id/checkBox2"
         android:layout_alignTop="@+id/checkBox2"
         android:clickable="true"
         android:enabled="true" />

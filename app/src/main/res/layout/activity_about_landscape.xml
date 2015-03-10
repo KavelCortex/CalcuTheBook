@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dogeLandscape"
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp"
+        android:src="@drawable/dogepic"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:onClick="dogeTurn"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="由@王嘉维开发"
+        android:id="@+id/textView5"
+        android:layout_marginTop="23dp"
+        android:layout_alignTop="@+id/dogeLandscape"
+        android:layout_toRightOf="@+id/dogeLandscape"
+        android:layout_toEndOf="@+id/dogeLandscape"
+        android:layout_marginLeft="89dp"
+        android:layout_marginStart="89dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="于一个忙得不可开交的学期伊始"
+        android:id="@+id/textView6"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="37dp"
+        android:layout_marginEnd="37dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="用于方便计算集体订书的金额"
+        android:id="@+id/textView7"
+        android:layout_below="@id/textView6"
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6"
+        android:layout_marginTop="9dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="使你免去不断重复操作计算器的烦恼"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/textView7"
+        android:layout_alignRight="@+id/textView7"
+        android:layout_alignEnd="@+id/textView7"
+        android:layout_marginTop="9dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="方便"
+        android:id="@+id/checkBox4"
+        android:checked="true"
+        android:clickable="true"
+        android:enabled="true"
+        android:layout_alignBottom="@+id/dogeLandscape"
+        android:layout_toLeftOf="@+id/checkBox5"
+        android:layout_toStartOf="@+id/checkBox5"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="实用"
+        android:id="@+id/checkBox5"
+        android:checked="true"
+        android:enabled="true"
+        android:clickable="true"
+        android:layout_alignTop="@+id/checkBox4"
+        android:layout_toLeftOf="@+id/checkBox6"
+        android:layout_toStartOf="@+id/checkBox6" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="可修改金额"
+        android:id="@+id/checkBox6"
+        android:checked="true"
+        android:clickable="true"
+        android:enabled="true"
+        android:layout_below="@+id/textView8"
+        android:layout_alignTop="@+id/checkBox5"
+        android:layout_alignRight="@+id/textView8"
+        android:layout_alignEnd="@+id/textView8" />
+</RelativeLayout>
