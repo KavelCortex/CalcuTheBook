@@ -1,10 +1,15 @@
 package com.cortek.calcuthebook;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +29,7 @@ public class About extends Activity {
             setContentView(R.layout.activity_about_portrait);
         else
             setContentView(R.layout.activity_about_landscape);
+        initActionBar();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,11 +42,23 @@ public class About extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if(id == R.id.action_feedback) {
-            feedback();
-            return true;
+        switch (id) {
+            case R.id.action_feedback:
+                feedback(); break;
+            case R.id.action_theme:
+                theme(); break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initActionBar() {
+        Drawable theme;
+        Resources res = this.getResources();
+        ActionBar actionBar = getActionBar();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int resId = prefs.getInt("CurrentTheme",R.drawable.red);
+        theme = res.getDrawable(resId);
+        actionBar.setBackgroundDrawable(theme);
     }
 
     public void dogeTurn(View v) {
@@ -71,11 +89,15 @@ public class About extends Activity {
             }
     }
 
+    public void theme(){
+        ThemeDialogFragment dialog = new ThemeDialogFragment();
+        dialog.show(getFragmentManager(),"themeDialog");
+    }
     public void feedback(){
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.putExtra(Intent.EXTRA_SUBJECT,"关于课本价格计算器V1.5的一些建议");
-        intent.putExtra(Intent.EXTRA_TEXT,"你好！关于这个版本的课本价格计算器，我有下面一些想法和建议：");
-        intent.setData(Uri.parse("mailto:wjw_wwasd@qq.com"));
+        intent.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.feedback_subject));
+        intent.putExtra(Intent.EXTRA_TEXT,getString(R.string.feedback_text));
+        intent.setData(Uri.parse(getString(R.string.mailto)));
         startActivity(intent);
     }
 }

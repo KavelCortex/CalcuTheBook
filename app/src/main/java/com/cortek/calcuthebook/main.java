@@ -1,43 +1,25 @@
 package com.cortek.calcuthebook;
 
+import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 public class main extends Activity {
 
@@ -63,7 +45,8 @@ public class main extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_new);
+        setContentView(R.layout.activity_main);
+        initTheme();//初始化主题
         initCursor();//初始化页面指示器
 
         //初始化两个页面并添加到FragmentList
@@ -159,6 +142,11 @@ public class main extends Activity {
     }
 
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        initTheme();
+    }
 
 
     @Override
@@ -180,6 +168,32 @@ public class main extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initTheme() {
+        initActionBar();
+        initTab();
+    }
+
+    private void initActionBar() {
+        Drawable theme;
+        Resources res = this.getResources();
+        ActionBar actionBar = getActionBar();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int resId = prefs.getInt("CurrentTheme",R.drawable.red);
+        theme = res.getDrawable(resId);
+        actionBar.setBackgroundDrawable(theme);
+    }
+
+    private void initTab(){
+        TextView tvPickBooks = (TextView)findViewById(R.id.tvPickBooks);
+        TextView tvSetPrice = (TextView)findViewById(R.id.tvSetPrice);
+        ImageView cursor = (ImageView)findViewById(R.id.cursor);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int resId = prefs.getInt("CurrentTheme",R.drawable.red);
+        tvPickBooks.setBackgroundResource(resId);
+        tvSetPrice.setBackgroundResource(resId);
+        cursor.setBackgroundResource(resId);
     }
 
     private void initCursor() {

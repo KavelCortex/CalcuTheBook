@@ -2,8 +2,9 @@
 <resources>
 
     <!-- Base application theme. -->
+
     <style name="titleStyle" parent="android:Widget.Holo.ActionBar">
-        <item name="android:background">@drawable/red</item>
+       <!-- <item name="android:background">@drawable/red</item>-->
         <item name="android:titleTextStyle">@style/titleStyle_text</item>
         <item name="android:displayOptions">showTitle</item>
     </style>
@@ -17,5 +18,4 @@
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/titleStyle</item>
     </style>
-
 </resources>

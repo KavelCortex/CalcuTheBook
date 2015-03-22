@@ -12,18 +12,11 @@ public class BookPriceFragment extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.pref_cost);
-        setupSimplePreferencesScreen();
+        setupPreferencesScreen();
     }
-    private void setupSimplePreferencesScreen() {
+    private void setupPreferencesScreen() {
 
-
-        // In the simplified UI, fragments are not used at all and we instead
-        // use the older PreferenceActivity APIs.
-
-        // Add 'general' preferences.
         addPreferencesFromResource(R.xml.pref_cost);
-
 
         // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
         // their values. When their values change, their summaries are updated
@@ -54,9 +47,6 @@ public class BookPriceFragment extends PreferenceFragment {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
-
-
-
             // For all other preferences, set the summary to the value's
             // simple string representation.
             preference.setSummary(stringValue+"元");

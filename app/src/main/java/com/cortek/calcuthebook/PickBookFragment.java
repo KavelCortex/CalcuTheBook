@@ -1,8 +1,7 @@
 package com.cortek.calcuthebook;
 
-import android.app.Activity;
+
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.preference.PreferenceManager;
@@ -11,14 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PickBookFragment extends Fragment {
 
     BigDecimal totalPrice = new BigDecimal(0);
     int checkedBoxCount = 0;
+    SimpleAdapter listAdapter;
+    ArrayList<Map<String,Object>> mData= new ArrayList<>();
+    ArrayList<Object> indexArray = new ArrayList<>();
+
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,7 @@ public class PickBookFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_pick_book, container, false);
+
         final CheckBox cb1 = (CheckBox) v.findViewById(R.id.cb1);
         final CheckBox cb2 = (CheckBox) v.findViewById(R.id.cb2);
         final CheckBox cb3 = (CheckBox) v.findViewById(R.id.cb3);
@@ -52,6 +62,8 @@ public class PickBookFragment extends Fragment {
         final CheckBox cb20 = (CheckBox) v.findViewById(R.id.cb20);
         final CheckBox cbAOR = (CheckBox) v.findViewById(R.id.cbAllOrReset);
         final TextView tvTotal = (TextView) v.findViewById(R.id.textView);
+        final ListView lvBookDetail = (ListView) v.findViewById(R.id.listView);
+        listAdapter = new SimpleAdapter(getActivity(),mData,R.layout.listview_book_detail,new String[]{"title","info"},new int[]{R.id.title,R.id.info});
 
 
         //创建监听器
@@ -76,8 +88,9 @@ public class PickBookFragment extends Fragment {
         cb19.setOnCheckedChangeListener(listener);
         cb20.setOnCheckedChangeListener(listener);
         cbAOR.setOnCheckedChangeListener(listener);
-        //TODO Continue here;
+
         tvTotal.setOnClickListener(listenerOnClick);
+        lvBookDetail.setAdapter(listAdapter);
         return v;
     }
     public View.OnClickListener listenerOnClick = new View.OnClickListener() {
@@ -243,15 +256,55 @@ public class PickBookFragment extends Fragment {
             cbAOR.setText(R.string.AOR_check_all);
         }
     }
+
+    public void addToData(Object title, Object info){
+        Map<String,Object> map = new HashMap<>();
+        map.put("title",title);
+        map.put("info",info);
+        mData.add(map);
+        indexArray.add(info);
+        listAdapter.notifyDataSetChanged();
+        setListHeight(1);
+    }
+    public void deleteData(Object info){
+        int index;
+        index=indexArray.lastIndexOf(info);
+        mData.remove(index);
+        indexArray.remove(index);
+        listAdapter.notifyDataSetChanged();
+        setListHeight(0);
+    }
+
+    public void setListHeight(int status){
+        final ListView lvBookDetail = (ListView) getView().findViewById(R.id.listView);
+        ListAdapter listAdapter = lvBookDetail.getAdapter();
+        if (checkedBoxCount==0) {
+
+            return;
+        }
+
+            View listItem = listAdapter.getView(0, null, lvBookDetail);
+            listItem.measure(0,0);
+            int totalHeight = checkedBoxCount * listItem.getMeasuredHeight();
+
+        ViewGroup.LayoutParams params = lvBookDetail.getLayoutParams();
+        params.height = totalHeight + (lvBookDetail.getDividerHeight() * checkedBoxCount);
+        lvBookDetail.setLayoutParams(params);
+    }
+
     public void buy1(boolean isChecked) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_1", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book1));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book1));
+            totalPrice = totalPrice.subtract(book);
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -260,10 +313,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_2", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book + "元", getString(R.string.book2));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book2));
+            totalPrice = totalPrice.subtract(book);
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -272,10 +329,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_3", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book3));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book3));
+            totalPrice = totalPrice.subtract(book);
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -284,10 +345,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_4", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book4));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book4));
+            totalPrice = totalPrice.subtract(book);
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -296,10 +361,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_5", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book5));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book5));
+            totalPrice = totalPrice.subtract(book);
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -308,10 +377,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_6", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book6));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book6));
+            totalPrice = totalPrice.subtract(book);
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -320,10 +393,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_7", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book7));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book7));
+            totalPrice = totalPrice.subtract(book);
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -332,10 +409,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_8", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book8));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book8));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -344,10 +425,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_9", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book9));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book9));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -356,10 +441,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_10", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book10));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book10));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -368,10 +457,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_11", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book11));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book11));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -380,10 +473,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_12", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book12));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book12));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -392,10 +489,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_13", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book13));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book13));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -404,10 +505,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_14", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book14));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book14));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -416,10 +521,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_15", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book15));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book15));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -428,10 +537,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_16", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book16));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book16));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -440,10 +553,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_17", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book17));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book17));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -452,10 +569,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_18", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book18));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book18));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -464,10 +585,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_19", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book19));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book19));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }
@@ -476,10 +601,14 @@ public class PickBookFragment extends Fragment {
         TextView textview = (TextView) getView().findViewById(R.id.textView);
         BigDecimal book = new BigDecimal(prefs.getString("book_cost_20", "0"));
         if(isChecked) {
-            totalPrice = totalPrice.add(book); checkedBoxCount++;
+            checkedBoxCount++;
+            addToData(book+"元",getString(R.string.book20));
+            totalPrice = totalPrice.add(book);
             textview.setText("总金额：" + totalPrice + "元");
         }else{
-            totalPrice = totalPrice.subtract(book); checkedBoxCount--;
+            checkedBoxCount--;
+            deleteData(getString(R.string.book20));
+            totalPrice = totalPrice.subtract(book); 
             textview.setText("总金额：" + totalPrice + "元");
         }
     }

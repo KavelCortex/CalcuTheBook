@@ -19,7 +19,7 @@
         </activity>
         <activity
             android:name=".order"
-            android:label="@string/title_activity_order" >
+            android:label="@string/main_set_price" >
         </activity>
         <activity
             android:name=".About"
